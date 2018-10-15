@@ -1,0 +1,10 @@
+{
+  "name": "webhook-node-deployer",
+  "version": "0.0.0",
+  "description": "Deploy NodeJS apps via webhooks",
+  "main": "server.js",
+  "repository": "https://github.com/Dacrol/webhook-node-deployer.git",
+  "author": "Dacrol <jonas.ahrens@gmail.com>",
+  "license": "UNLICENSED",
+  "private": true
+}
