@@ -8,7 +8,7 @@ const http = require('http')
 const crypto = require('crypto')
 const child_process = require('child_process')
 
-let exec
+let exec = child_process.exec('cd ' + repo + ' && git pull && npm i && npm start')
 http.createServer(function(req, res) {
     req.on('data', function(chunk) {
       let signature =
