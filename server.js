@@ -8,8 +8,9 @@ const http = require('http')
 const crypto = require('crypto')
 const child_process = require('child_process')
 
-let exec = child_process.exec('cd ' + repo + ' && git pull && npm i && npm start')
-http.createServer(function(req, res) {
+let exec = pullAndStart(repo)
+http
+  .createServer(function(req, res) {
     req.on('data', function(chunk) {
       let signature =
         'sha1=' +
@@ -22,9 +23,13 @@ http.createServer(function(req, res) {
         if (exec) {
           exec.kill()
         }
-        exec = child_process.exec('cd ' + repo + ' && git pull && npm i && npm start')
+        exec = pullAndStart(repo)
       }
     })
     res.end()
   })
   .listen(8080)
+
+function pullAndStart(repo) {
+  return child_process.exec('cd ' + repo + ' && git pull && npm i && npm start')
+}
