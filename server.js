@@ -31,5 +31,5 @@ http
   .listen(8080)
 
 function pullAndStart(repo) {
-  return child_process.exec('cd ' + repo + ' && git pull && npm i && npm start')
+  return child_process.exec('cd ' + repo + ' && git checkout -- . && git pull && npm i && npm start')
 }
