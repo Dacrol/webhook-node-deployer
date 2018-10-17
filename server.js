@@ -28,7 +28,7 @@ http
     })
     res.end()
   })
-  .listen(8080)
+  .listen(process.env.PORT || 8080)
 
 function pullAndStart(repo) {
   return child_process.exec('cd ' + repo + ' && git checkout -- . && git pull && npm i && npm start')
