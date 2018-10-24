@@ -7,6 +7,8 @@ const repo = process.env.REPO
 const http = require('http')
 const crypto = require('crypto')
 const child_process = require('child_process')
+const util = require('util')
+const pexec = util.promisify(child_process.exec)
 
 let exec = pullAndStart(repo)
 http
