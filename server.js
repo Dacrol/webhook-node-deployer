@@ -10,7 +10,7 @@ const child_process = require('child_process')
 const util = require('util')
 const pexec = util.promisify(child_process.exec)
 
-let exec = pullAndStart(repo)
+let exec
 http
   .createServer(function(req, res) {
     req.on('data', function(chunk) {
@@ -25,7 +25,7 @@ http
         if (exec) {
           exec.kill()
         }
-        exec = pullAndStart(repo)
+        pullAndStart(repo)
       }
     })
     res.end()
@@ -33,6 +33,12 @@ http
   .listen(process.env.PORT || 8080)
 
 function pullAndStart(repo) {
-  console.log('Incoming webhook')
-  return child_process.exec('cd ' + repo + ' && git checkout -- . && git fetch && git pull && npm i && npm start')
+  console.log('Restarting child process...')
+  pexec(
+    'cd ' + repo + ' && git checkout -- . && git fetch && git pull && npm i'
+  ).then(() => {
+    exec = child_process.spawn('npm', ['start'], {
+      cwd: path.resolve(repo)
+    })
+  })
 }
