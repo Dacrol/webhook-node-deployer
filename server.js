@@ -31,5 +31,6 @@ http
   .listen(process.env.PORT || 8080)
 
 function pullAndStart(repo) {
+  console.log('Incoming webhook')
   return child_process.exec('cd ' + repo + ' && git checkout -- . && git fetch && git pull && npm i && npm start')
 }
